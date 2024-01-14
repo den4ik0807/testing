@@ -1,3 +1,5 @@
+Казино
+
 import random
 random_number = random.randint(1,100)
 attempts = 10
@@ -24,7 +26,9 @@ while attempts > 0:
         print("Вы угадали задуманное число, поздравляем!")
         print("Вы потратили", all_attempts, "попыток")
 
+        
 
+Сердце из звездочек
 
  a = 8
  b = a + 1
@@ -64,7 +68,11 @@ while attempts > 0:
              print(' ', end=" ")
      print()
 
+     
 
+
+
+Пиццерия
 
 print("Добро пожаловать в наше кафе!")
 result = 0
@@ -226,3 +234,92 @@ while i <= 1000:
             lease = sum - result
             print("Ваша сдача:",lease,". До свидания!")
             break
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MVS
+
+# model.py
+shoe_inventory = []
+
+def add_shoe(brand, model, size):
+    shoe = {"brand": brand, "model": model, "size": size}
+    shoe_inventory.append(shoe)
+
+def remove_shoe(index):
+    if 0 <= index < len(shoe_inventory):
+        removed_shoe = shoe_inventory.pop(index)
+        return removed_shoe
+    else:
+        return None
+
+def get_all_shoes():
+    return shoe_inventory
+
+
+# view.py
+def display_menu():
+    print("1. Посмотреть все товары")
+    print("2. Добавить товар")
+    print("3. Удалить товар")
+    print("4. Выйти")
+
+def display_all_shoes(shoe_inventory):
+    print("\nОбувной инвентарь:")
+    for i, shoe in enumerate(shoe_inventory):
+        print(f"{i+1}. {shoe['brand']} {shoe['model']}, Размер: {shoe['size']}")
+
+def display_success(message):
+    print(f"\nУспешно: {message}")
+
+def display_error(message):
+    print(f"\nОшибка: {message}")
+
+
+# controller.py
+from Model import add_shoe, remove_shoe, get_all_shoes
+from View import display_menu, display_all_shoes, display_success, display_error
+
+def main():
+    while True:
+        display_menu()
+        choice = input("\nВыберите действие (1-4): ")
+
+        if choice == "1":
+            display_all_shoes(get_all_shoes())
+        elif choice == "2":
+            brand = input("Введите бренд обуви: ")
+            model = input("Введите модель обуви: ")
+            size = input("Введите размер обуви: ")
+
+            add_shoe(brand, model, size)
+            display_success("Обувь успешно добавлена.")
+        elif choice == "3":
+            index = int(input("Введите номер обуви для удаления: ")) - 1
+            removed_shoe = remove_shoe(index)
+
+            if removed_shoe:
+                display_success(f"Обувь {removed_shoe['brand']} {removed_shoe['model']} удалена.")
+            else:
+                display_error("Неверный номер обуви.")
+        elif choice == "4":
+            print("Выход из программы.")
+            break
+        else:
+            display_error("Неверный выбор. Пожалуйста, выберите от 1 до 4.")
+
+if __name__ == "__main__":
+    main()
