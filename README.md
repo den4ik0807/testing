@@ -323,3 +323,234 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+
+
+
+
+
+
+Наследование 2 примера
+class Vehicle:
+    def __init__(self, make, model, year):
+        self.make = make
+        self.model = model
+        self.year = year
+
+    def info(self):
+        return f"{self.year} {self.make} {self.model}"
+
+class Car(Vehicle):
+    def __init__(self, make, model, year, color):
+        super().__init__(make, model, year)
+        self.color = color
+
+    def display_info(self):
+        return f"{super().info()}, Цвет: {self.color}"
+
+class Truck(Vehicle):
+    def __init__(self, make, model, year, towing_capacity):
+        super().__init__(make, model, year)
+        self.towing_capacity = towing_capacity
+
+    def display_info(self):
+        return f"{super().info()}, Буксировочная способность: {self.towing_capacity} кг"
+
+car = Car("Kia", "Rio", 2020, "Black")
+print(car.display_info())
+
+truck = Truck("КАМАЗ", "65115-А5", 2015, 19000)
+print(truck.display_info())
+
+
+
+class Animal:
+    def __init__(self, name, species):
+        self.name = name
+        self.species = species
+
+    def make_sound(self):
+        pass
+
+class Dog(Animal):
+    def make_sound(self):
+        return "'Гав!'"
+
+class Cat(Animal):
+    def make_sound(self):
+        return "'Где еда!'"
+
+dog = Dog("Бобик", "Пёс")
+print(f"{dog.name} есть {dog.species}, говорящий {dog.make_sound()}")
+
+cat = Cat("Аполлон", "Кот")
+print(f"{cat.name} есть {cat.species}, говорящий {cat.make_sound()}")
+
+
+
+Полиморфизм 2 примера
+class Shape:
+    def area(self):
+        pass
+
+class Rectangle(Shape):
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def area(self):
+        return self.width * self.height
+
+class Circle(Shape):
+    def __init__(self, radius):
+        self.radius = radius
+
+    def area(self):
+        return 3.14 * self.radius ** 2
+
+shapes = [Rectangle(3, 7), Circle(3.14)]
+
+for shape in shapes:
+    print(shape.area())
+
+
+
+class Animal:
+    def sounds(self):
+        pass
+
+class Dog(Animal):
+    def sounds(self):
+        return "Гав-гав!"
+
+class Cat(Animal):
+    def sounds(self):
+        return "Да где едаааа!"
+
+def make_animal_sound(animal):
+    return animal.sounds()
+
+dog = Dog()
+cat = Cat()
+
+print(make_animal_sound(dog))
+print(make_animal_sound(cat))
+
+
+
+
+Инкапсуляция 2 примера
+class Person:
+    def __init__(self, name, age):
+        self._name = name
+        self._age = age
+    def get_name(self):
+        return self._name
+
+    def set_age(self, age):
+        if age > 0:
+            self._age = age
+
+person = Person("Андрей", -22)
+print(person.get_name())
+person.set_age(25)
+print(person._age)
+
+
+class Cat:
+    def __init__(self, name, age):
+        self.__name = name  # устанавливаем имя
+        self.__age = age
+
+    def make_a_sound(self):
+        print("Мяу!")
+
+    @property
+    def age(self):
+        return self.__age
+
+    @age.setter
+    def age(self, age):
+        if 0 < age < 20:
+            self.__age = age
+        else:
+            print("Недопустимый возраст")
+
+    def print_cat(self):
+        print(f"Кличка: {self.__name}\tВозраст: {self.__age}")
+
+murka=Cat("Мурка",5)
+
+murka.print_cat()
+murka.age=-86
+murka.age=13
+murka.make_a_sound()
+murka.print_cat()
+murka.make_a_sound()
+
+
+
+
+Абстрактные классы 2 примера
+import abc
+n1 = 5; n2 = 8
+class Shape(abc.ABC):
+    @abc.abstractmethod
+    def area (self): pass
+
+
+class Rectangle(Shape):
+    def __init__(self, n1, n2):
+        self.n1 = n1
+        self.n2 = n2
+    def area(self):
+        return self.n1 * self.n2
+
+
+class Circle(Shape):
+    def __init__(self, n1):
+        self.n1 = n1
+    def area(self):
+        return 3.14 * self.n1**2
+
+class Triangle(Shape):
+    def __init__(self, n1, n2):
+        self.n1 = n1
+        self.n2 = n2
+    def area(self):
+        return (self.n1 * self.n2)/2
+
+
+rect = Rectangle(n1, n2)
+circ = Circle(n1)
+trian = Triangle(n1, n2)
+print("Площадь прямоугольника:", rect.area())
+print("Площадь круга:", circ.area())
+print("Площадь треугольника:", trian.area())
+
+
+
+from abc import ABC, abstractmethod
+class Animal(ABC):
+    @property
+    @abstractmethod
+    def sound(self):
+        pass
+
+class Dog(Animal):
+    @property
+    def sound(self):
+        return "Ну гав-гав"
+
+class Cat(Animal):
+    @property
+    def sound(self):
+        return "Где моя едааааааа"
+
+dog = Dog()
+print("Звук собаки:", dog.sound)
+
+cat = Cat()
+print("Звук кошки:", cat.sound)
