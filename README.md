@@ -554,3 +554,11 @@ print("Звук собаки:", dog.sound)
 
 cat = Cat()
 print("Звук кошки:", cat.sound)
+
+
+
+
+
+
+
+
